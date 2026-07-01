@@ -17,7 +17,7 @@ void swapValuesInArrayByIndex(int *originalArray, int firstValuePosition, int se
   originalArray[secondValuePosition] = temporalStorageForValue;
 }
 
-// merging two arrays with sorting of elements of them of variable value
+// NB - THIS METHOD WORKS ONLY WITH PREVIOUSLY SORTED ARRAYS! IF ARRAYS NOT BE SORTED THE RESULTS OF THIS METHOD WILL BE INCORRECT!
 int *mergeTwoArraysWithSorting(int *firstArray, int sizeOfFirstArray, int *secondArray, int sizeOfSecondArray)
 {
   int sizeOfSummaryArray = sizeOfFirstArray + sizeOfSecondArray;
