@@ -1,4 +1,4 @@
-#include <iostream>
+  #include <iostream>
 
 class ArrayElement {   
     int currentIndex;
@@ -47,38 +47,31 @@ void structurizeArrayAsHeap(int *array, int size, int lastNonLeafElementIndex) {
 
     int leftChildIndex = 2*lastNonLeafElementIndex+1;
     int rightChildIndex = 2*lastNonLeafElementIndex+2;
-
-    std::cout << "Left child index for parent with index "<<lastNonLeafElementIndex<< " - "<<leftChildIndex<<std::endl;
-    std::cout << "Right child index for parent with index "<<lastNonLeafElementIndex<< " - "<<rightChildIndex<<std::endl;
+ 
 
     // case 1. There is no right child for the element 
     if (rightChildIndex>=size) {
-        // in this case we just checking left child element and root and swap if needed
-        std::cout << "Left child for element "<< array[lastNonLeafElementIndex] << " is " << array[leftChildIndex] << std::endl;
-        std::cout << "Right child for element "<< array[lastNonLeafElementIndex] << " - there is no right child index for this element" << std::endl;
-
+        // in this case we just checking left child element and root and swap if needed    
+ if (leftChildIndex < size) {
         if(array[lastNonLeafElementIndex]<array[leftChildIndex]) {
-            swapValues(&array[lastNonLeafElementIndex],&array[leftChildIndex]);
+            swapValues(&array[lastNonLeafElementIndex],&array[leftChildIndex]);    
+            structurizeArrayAsHeap(array,size,leftChildIndex);        
         }
     }
+}
 
     //case 2. if there are two childs, we need to check who is the largest one
     else if ((rightChildIndex<size)) {
-
-    std::cout << "Left child for element "<< array[lastNonLeafElementIndex] << " is " << array[leftChildIndex] << std::endl;
-    std::cout << "Right child for element "<< array[lastNonLeafElementIndex] << " is " << array[rightChildIndex] << std::endl;
-
+ 
         ArrayElement leftChild(array[leftChildIndex], leftChildIndex);
         ArrayElement rightChild(array[rightChildIndex], rightChildIndex);        
   
         int largestChildElementIndex = getLargestElementIndex(leftChild,rightChild);
-
-        std::cout << "TAKING THE LARGEST CHILD BETWEEN "<< array[leftChildIndex] << " AND "<<array[rightChildIndex]<<std::endl;
-        std::cout << "LARGEST CHILD IS "<<array[largestChildElementIndex]<<std::endl;
-
+ 
         if (array[lastNonLeafElementIndex]<array[largestChildElementIndex]) {
             swapValues(&array[lastNonLeafElementIndex], &array[largestChildElementIndex]);
-            std::cout << "SWAPPED "<< *(&array[lastNonLeafElementIndex]) << " AND "<<*(&array[largestChildElementIndex])<<std::endl;
+            structurizeArrayAsHeap(array, size, largestChildElementIndex);   
+          
         }
     }    
 }
@@ -98,13 +91,18 @@ int *heapSortArrayAsc(int *unsortedArray, int size) {
         return sortedArray;
     }
     
-    int lastNonLeafElementIndex = (size / 2) - 1;
-    std::cout << "Last non-leaf element is " << unsortedArray[lastNonLeafElementIndex] << std::endl;
+    int lastNonLeafElementIndex = (size / 2) - 1;    
     
+    // Common phase 01. Building heap based on array values
     for (int i = lastNonLeafElementIndex; i >= 0; i--) {
         structurizeArrayAsHeap(unsortedArray, size, i);
-    }
-    
+    }     
+
+    // Common phase 02. Sorting array 
+    for (int barrierElement = size-1; barrierElement>0;barrierElement--) {
+        swapValues(&sortedArray[0],&sortedArray[barrierElement]);
+        structurizeArrayAsHeap(sortedArray,barrierElement,0);
+    }    
     return sortedArray; 
 }
 
