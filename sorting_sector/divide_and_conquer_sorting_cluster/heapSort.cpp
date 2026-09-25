@@ -106,7 +106,6 @@ int *heapSortArrayAsc(int *unsortedArray, int size) {
     return sortedArray; 
 }
 
-
 int main() {
 
     int unsortedArray[] = {11,12,13,5,6,7};
@@ -121,3 +120,23 @@ int main() {
 
     return  0;
 }
+
+/**
+ * The main idea of this sorting algorithm lies in such approach - every array may be 
+ * transformed - or counted - as a tree.
+ * 
+ * Our first move will be to find last non-leaf element of the tree. 
+ * For this we use formula LNLE index = (arraySize-1)/2
+ * 
+ * Then we put this array to special function what: (PHASE ONE)
+ *  - starts from last non-leaf element of the array, checking its childs : 
+ *  - it takes the largest of the childs 
+ *  - then in checks is largest child is bigger then parent - if so, swaps the parent and child
+ *  - and moves further till reach root of the tree - element [0] of the array
+ * 
+ *  After that goes stage two: (PHASE TWO)
+ *  - we swapping root and the last element of the array
+ *  - then we bar last element of the array - meaning that we will no further operate with it 
+ *  - and again structurizing the array like a tree as in phase one, except last element (see point above)
+ *  - so moving recurseively to the root - first element of array.
+ */
