@@ -74,7 +74,6 @@ void swapValues(int *a, int *b) {
     *b = temporaryElement;      
 }
 
-
 int getArrayMinimum(int *array, int arraySize)
 {
   int currentMinimum = array[0];
@@ -183,3 +182,16 @@ int main() {
 
     return 0;
 }
+
+/**
+ * The main point of bucket sort is the following: 
+ * 1. We determine the range of values between minimum and maximum of the array.
+ * 2. Then we determine amount of buckets. Amount of buckets is equal to amount of elements in the array.
+ * 3. Then we calculate capacity of each bucket. For this, we divide range by amount of buckets.
+ * 4. Then we calculate range for every bucket - low tier and high tier.
+ * 5. All buckets stored into buckets array.
+ * 6. Then we go through array and apprehend each element of the array to the corresponding bucket depending its range.
+ * 7. After it finished, we sort each bucket using some standard sort which was implemented earlier.
+ * 8. Then we forming back our array, retrieving values from each bucket, by this receiving sorted array.
+ */
+
